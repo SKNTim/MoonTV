@@ -1,10 +1,9 @@
 import { BackButton } from './BackButton';
-import { LogoutButton } from './LogoutButton';
 import MobileBottomNav from './MobileBottomNav';
 import MobileHeader from './MobileHeader';
-import { SettingsButton } from './SettingsButton';
 import Sidebar from './Sidebar';
 import { ThemeToggle } from './ThemeToggle';
+import { UserMenu } from './UserMenu';
 
 interface PageLayoutProps {
   children: React.ReactNode;
@@ -15,7 +14,7 @@ const PageLayout = ({ children, activePath = '/' }: PageLayoutProps) => {
   return (
     <div className='w-full min-h-screen'>
       {/* 移动端头部 */}
-      <MobileHeader showBackButton={['/play'].includes(activePath)} />
+      <MobileHeader showBackButton={['/play', '/live'].includes(activePath)} />
 
       {/* 主要布局容器 */}
       <div className='flex md:grid md:grid-cols-[auto_1fr] w-full min-h-screen md:min-h-auto'>
@@ -27,7 +26,7 @@ const PageLayout = ({ children, activePath = '/' }: PageLayoutProps) => {
         {/* 主内容区域 */}
         <div className='relative min-w-0 flex-1 transition-all duration-300'>
           {/* 桌面端左上角返回按钮 */}
-          {['/play'].includes(activePath) && (
+          {['/play', '/live'].includes(activePath) && (
             <div className='absolute top-3 left-1 z-20 hidden md:flex'>
               <BackButton />
             </div>
@@ -35,14 +34,13 @@ const PageLayout = ({ children, activePath = '/' }: PageLayoutProps) => {
 
           {/* 桌面端顶部按钮 */}
           <div className='absolute top-2 right-4 z-20 hidden md:flex items-center gap-2'>
-            <SettingsButton />
-            <LogoutButton />
             <ThemeToggle />
+            <UserMenu />
           </div>
 
           {/* 主内容 */}
           <main
-            className='flex-1 md:min-h-0 mb-14 md:mb-0'
+            className='flex-1 md:min-h-0 mb-14 md:mb-0 md:mt-0 mt-12'
             style={{
               paddingBottom: 'calc(3.5rem + env(safe-area-inset-bottom))',
             }}
